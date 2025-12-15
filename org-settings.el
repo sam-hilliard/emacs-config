@@ -43,5 +43,12 @@
         ("DONE"        . (:foreground "#79740e" :weight bold))
         ("CANCELLED"   . (:foreground "#928374" :weight bold))))
 
-;; Open projects.org file at startup
-(find-file (expand-file-name "projects.org" org-directory))
+;; Open agenda on startup
+(add-hook 'emacs-startup-hook #'org-agenda)
+
+;; Capture templates
+(setq org-capture-templates
+      '(("t" "Task" entry
+         (file+headline (expand-file-name "projects.org" org-directory) "Tasks")
+         "* TODO %?\n  SCHEDULED: %t\n  DEADLINE: %^t\n  %i")
+        ))

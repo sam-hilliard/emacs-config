@@ -14,3 +14,7 @@
 ;; Ensure gruvbox theme is installed
 (unless (package-installed-p 'gruvbox-theme)
   (package-install 'gruvbox-theme))
+
+(unless (package-installed-p 'magit)
+  (package-refresh-contents)
+  (package-install 'magit))
