@@ -33,7 +33,8 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-solarized-dark)
+(setq doom-theme 'doom-monokai-ristretto)
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -76,6 +77,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; -------------------------
+;; ORG Settings
+;; -------------------------
+
 (after! org-roam
   (setq org-roam-directory "~/Documents/notes/org/roam/"))
 
@@ -83,14 +88,29 @@
 
 (setq org-table-automatic-recalculate t)
 
-;; Keybindings
+;; Capture templates
+
+(after! org
+  (setq org-capture-templates
+        '(("p" "Project" entry
+           (file+headline "~/Documents/notes/org/projects.org" "Projects")
+           "** PROJ %?\nSCHEDULED: %t\n")
+
+          ("t" "Todo" entry
+           (file+headline "~/Documents/notes/org/todos.org" "Todos")
+           "** [ ] %?\nSCHEDULED: %t\n"))))
+
+;; -------------------------
+;; Key bindings
+;; -------------------------
+
 (map! :leader
       :desc "Open vterm"
       "o t" #'vterm)
 
 (map! :leader
       :desc "Open vterm new session"
-      "o t" #'multi-vterm)
+      "o T" #'multi-vterm)
 
 (map! :leader
       :desc "Open dired"
