@@ -33,7 +33,21 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 ;; (setq doom-theme 'doom-one)
-(setq doom-theme 'doom-monokai-ristretto)
+(setq doom-theme 'doom-city-lights)
+
+;; Toggle between light/dark themes
+
+(defun my/toggle-theme ()
+  "Toggle between doom-acario-light and doom-city-lights."
+  (interactive)
+  (if (eq doom-theme 'doom-acario-light)
+      (setq doom-theme 'doom-city-lights)
+    (setq doom-theme 'doom-acario-light))
+  (load-theme doom-theme t))
+
+(map! :leader
+      :desc "Toggle light/dark theme"
+      "t T" #'my/toggle-theme)
 
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -100,6 +114,13 @@
            (file+headline "~/Documents/notes/org/todos.org" "Todos")
            "** [ ] %?\nSCHEDULED: %t\n"))))
 
+;; Pomodoro
+
+(after! org-pomodoro
+  (setq org-pomodoro-length 25
+        org-pomodoro-short-break-length 5
+        org-pomodoro-long-break-length 15))
+
 ;; -------------------------
 ;; Key bindings
 ;; -------------------------
@@ -119,3 +140,13 @@
 (map! :leader
       :desc "Open eww"
       "o e" #'eww)
+
+;; CodeQL Config
+
+(use-package! emacs-codeql
+  :defer nil
+  :init
+  :config
+  (map! :leader
+        (:prefix-map ("c" . "code")
+         :desc "CodeQL Transient" "q" #'codeql-transient)))

@@ -58,3 +58,11 @@
 (package! vterm)
 (package! multi-vterm)
 (package! csv-mode)
+
+
+;; codeql for emacs
+
+(package! emacs-codeql
+  :recipe (:host github
+           :repo "anticomputer/emacs-codeql"
+           :files (:defaults "bin")))
